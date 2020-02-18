@@ -15,8 +15,6 @@ import Card from '../components/Card'
 import Colors from '../constants/Colors'
 import Input from '../components/Input'
 import CircleShape from '../components/CircleShape'
-import HeartShape from '../components/HeartShape'
-import CrossShape from '../components/CrossShape'
 
 const StartGameScreen = props => {
 
@@ -83,32 +81,16 @@ const StartGameScreen = props => {
                         value={enteredValue}
                         placeholder='0'
                         placeholderTextColor="#000" />
-                    {/* <View style={styles.buttonContainer}>
-                        <View style={styles.button}>
-                            <Button
-                                onPress={resetInputHandler}
-                                title="Reset"
-                                color="#fff" />
-                        </View>
-                        <View style={styles.button}>
-                            <Button
-                                title="Confirm"
-                                color="#fff"
-                                onPress={confirmInputHandler} />
-                        </View>
-                    </View> */}
 
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.heartButton} onPress={resetInputHandler}>
+                        <TouchableOpacity style={styles.confirmButton} onPress={resetInputHandler}>
                             <CircleShape style={styles.circle}>
-                                <HeartShape style={styles.heart}>
-
-                                </HeartShape>
+                                <Text style={styles.buttonText}>x</Text>
                             </CircleShape>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.crossButton} onPress={confirmInputHandler}>
+                        <TouchableOpacity style={styles.cancelButton} onPress={confirmInputHandler}>
                             <CircleShape style={styles.circle}>
-                                <CrossShape style={styles.cross}></CrossShape>
+                                <Text style={styles.buttonText}>OK</Text>
                             </CircleShape>
                         </TouchableOpacity>
                     </View>
@@ -126,10 +108,10 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height,
         alignItems: 'center'
     },
-    heartButton: {
+    confirmButton: {
 
     },
-    crossButton: {
+    cancelButton: {
 
     },
     gameArea: {
@@ -216,16 +198,12 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: '#fff'
     },
-    heart: {
-        backgroundColor: 'white',
-        width: 40,
-        height: 40
-    },
-    cross: {
-        height: 40,
-        width: 40,
+    buttonText: {
+        fontSize: 20,
+        fontWeight: "bold"
     }
 });
 

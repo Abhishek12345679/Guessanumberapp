@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
+import React, { useState, useRef, useEffect} from 'react'
+import { View, StyleSheet, TouchableOpacity, Text, Button, Alert } from 'react-native'
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
 
@@ -21,16 +21,43 @@ const GameScreen = props => {
     const [currentGuess, setCurrentGuess] =
         useState(generateNumberBetween(1, 100, props.userChoice))
 
+        
+
+        useEffect(()=>{
+
+        })
+
+    currentHigh = useRef(100);
+    currentLow = useRef(1);
+
+    const nextGuessHandler = direction => {
+        if ((direction === 'greater' && currentGuess > props.userChoice) || (direction === 'lower' && currentGuess < props.userChoice)) {
+            Alert.alert('Fraud Alert', 'Hint accordingly',
+                [{ text: 'Cancel', style: 'cancel' }]);
+            return;
+        }
+        if (direction === 'lower') {
+            currentHigh.current = currentGuess;
+        }
+        else {
+            currentLow.current = currentGuess;
+        }
+
+        const nextGuess = generateNumberBetween(currentLow.current, currentHigh.current, currentGuess)
+        setCurrentGuess(nextGuess)
+    }
+
+
     return (
         <View style={styles.screen}>
             <View style={styles.mainContainer}>
-                <TouchableOpacity style={styles.upButton}>
+                <TouchableOpacity style={styles.upButton} onPress={nextGuessHandler.bind(this, 'greater')}>
                     <CircleShape style={styles.circle}>
                         <Text style={{ color: '#000', fontWeight: 'bold' }}>UP</Text>
                     </CircleShape>
                 </TouchableOpacity>
                 <NumberContainer style={styles.numberContainer}>{currentGuess}</NumberContainer>
-                <TouchableOpacity style={styles.downButton}>
+                <TouchableOpacity style={styles.downButton} onPress={nextGuessHandler.bind(this, 'lower')}>
                     <CircleShape style={styles.circle}>
                         <Text style={{ color: '#000', fontWeight: 'bold' }}>DOWN</Text>
                     </CircleShape>
@@ -64,9 +91,9 @@ const styles = StyleSheet.create({
     circle: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'white',
-        borderWidth:1,
-        borderColor:'#ccc'
+        backgroundColor: 'white',
+        borderWidth: 1,
+        borderColor: '#ccc'
     }
 })
 
