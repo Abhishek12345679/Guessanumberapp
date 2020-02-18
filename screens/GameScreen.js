@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text,Button } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Button } from 'react-native'
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
 
@@ -22,17 +22,17 @@ const GameScreen = props => {
         useState(generateNumberBetween(1, 100, props.userChoice))
 
     return (
-        <View>
+        <View style={styles.screen}>
             <View style={styles.mainContainer}>
                 <TouchableOpacity style={styles.upButton}>
-                    <CircleShape>
-                        <Text>∧</Text>
+                    <CircleShape style={styles.circle}>
+                        <Text style={{ color: '#000', fontWeight: 'bold' }}>UP</Text>
                     </CircleShape>
                 </TouchableOpacity>
-                <NumberContainer>{currentGuess}</NumberContainer>
+                <NumberContainer style={styles.numberContainer}>{currentGuess}</NumberContainer>
                 <TouchableOpacity style={styles.downButton}>
-                    <CircleShape>
-                        <Text>∨</Text>
+                    <CircleShape style={styles.circle}>
+                        <Text style={{ color: '#000', fontWeight: 'bold' }}>DOWN</Text>
                     </CircleShape>
                 </TouchableOpacity>
             </View>
@@ -41,18 +41,32 @@ const GameScreen = props => {
 }
 
 const styles = StyleSheet.create({
+    screen: {
+        flex: 1,
+        padding: 5,
+        marginTop: 10
+    },
     mainContainer: {
         flexDirection: 'column',
         flex: 1,
-        marginVertical: 20,
+        marginVertical: 0,
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-around',
+    },
+    numberContainer: {
     },
     upButton: {
 
     },
     downButton: {
 
+    },
+    circle: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'white',
+        borderWidth:1,
+        borderColor:'#ccc'
     }
 })
 

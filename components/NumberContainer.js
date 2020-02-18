@@ -13,8 +13,8 @@ const NumberContainer = props => {
 
 const styles = StyleSheet.create({
     numbercontainer: {
-        width: 200,
-        height: 200,
+        width: 100,
+        height: 100,
         backgroundColor: "#000",
         justifyContent: "center",
         alignItems: 'center'
