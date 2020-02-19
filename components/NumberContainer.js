@@ -1,5 +1,5 @@
 import React from "react";
-import {Button,fText, StyleSheet } from "react-native";
+import {Button,Text, StyleSheet } from "react-native";
 
 import Circle from '../components/CircleShape'
 
