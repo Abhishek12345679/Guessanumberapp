@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, StyleSheet } from "react-native";
 
 import Circle from '../components/CircleShape'
 
@@ -20,9 +20,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     number: {
-        fontSize:35,
-        color:'#fff',
-        textAlign:'center'
+        fontSize: 35,
+        color: '#fff',
+        textAlign: 'center'
     }
 });
 

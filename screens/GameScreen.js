@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Button, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
 
