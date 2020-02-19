@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, Button, Alert } from 'react-native'
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
@@ -21,14 +21,21 @@ const GameScreen = props => {
     const [currentGuess, setCurrentGuess] =
         useState(generateNumberBetween(1, 100, props.userChoice))
 
-        
 
-        useEffect(()=>{
+    const currentHigh = useRef(100);
+    const currentLow = useRef(1);
 
-        })
+    const [rounds, setRounds] = useState(0);
 
-    currentHigh = useRef(100);
-    currentLow = useRef(1);
+    const { userChoice, onGameOver } = props;
+
+    useEffect(() => {
+        if (currentGuess === props.userChoice) {
+            onGameOver(rounds)
+        }
+    }, [userChoice, onGameOver, currentGuess]
+    )
+
 
     const nextGuessHandler = direction => {
         if ((direction === 'greater' && currentGuess > props.userChoice) || (direction === 'lower' && currentGuess < props.userChoice)) {
@@ -45,6 +52,7 @@ const GameScreen = props => {
 
         const nextGuess = generateNumberBetween(currentLow.current, currentHigh.current, currentGuess)
         setCurrentGuess(nextGuess)
+        setRounds(curRounds => curRounds + 1)
     }
 
 
