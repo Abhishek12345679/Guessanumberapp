@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         backgroundColor: '#fff',
         marginTop: 0,
-        fontWeight: 'bold',
+        fontFamily:'open-sans'
     },
     buttonContainer: {
         width: '90%',
@@ -192,7 +192,8 @@ const styles = StyleSheet.create({
     },
     selectedNumber: {
         color: '#fff',
-        fontSize: 120
+        fontSize: 120,
+        fontFamily:'open-sans-bold'
     },
     circle: {
         width: 50,
@@ -203,7 +204,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        fontWeight: "bold"
+        fontFamily:'open-sans'
     }
 });
 
