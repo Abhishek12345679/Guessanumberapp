@@ -16,6 +16,9 @@ import Colors from '../constants/Colors'
 import Input from '../components/Input'
 import CircleShape from '../components/CircleShape'
 
+import BodyText from '../components/BodyText'
+import TitleText from '../components/TitleText'
+
 const StartGameScreen = props => {
 
     const [enteredValue, setEnteredValue] = useState('')
@@ -79,7 +82,6 @@ const StartGameScreen = props => {
                         maxLength={2}
                         onChangeText={changeTextHandler}
                         value={enteredValue}
-                        placeholder='0'
                         placeholderTextColor="#000" />
 
                     <View style={styles.buttonContainer}>
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         backgroundColor: '#fff',
         marginTop: 0,
-        fontFamily:'open-sans'
+        fontFamily: 'open-sans'
     },
     buttonContainer: {
         width: '90%',
@@ -193,7 +195,7 @@ const styles = StyleSheet.create({
     selectedNumber: {
         color: '#fff',
         fontSize: 120,
-        fontFamily:'open-sans-bold'
+        fontFamily: 'open-sans-bold'
     },
     circle: {
         width: 50,
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 20,
-        fontFamily:'open-sans'
+        fontFamily: 'open-sans'
     }
 });
 
