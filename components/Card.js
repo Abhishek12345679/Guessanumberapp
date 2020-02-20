@@ -11,7 +11,11 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         shadowColor: '#000',
         shadowOpacity: 0.6,
-        shadowOffset: { width: 0, height: 6 }
+        shadowOffset: { width: 0, height: 6 },
+        backgroundColor:'#000',
+        width:100,
+        height:40,
+        justifyContent:'center'
     }
 })
 

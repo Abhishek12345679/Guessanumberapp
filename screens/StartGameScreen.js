@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import {
     View,
     StyleSheet,
-    Text,
     TouchableWithoutFeedback,
     Keyboard,
     Dimensions,
@@ -11,19 +10,26 @@ import {
     TouchableOpacity,
 } from "react-native";
 
+import {
+    AntDesign,
+    MaterialCommunityIcons
+} from '@expo/vector-icons'
+
 import Card from '../components/Card'
 import Colors from '../constants/Colors'
 import Input from '../components/Input'
 import CircleShape from '../components/CircleShape'
 
 import BodyText from '../components/BodyText'
-import TitleText from '../components/TitleText'
+import StartGameBtn from "../components/StartGameBtn";
 
 const StartGameScreen = props => {
 
     const [enteredValue, setEnteredValue] = useState('')
     const [selectedNumber, setSelectedNumber] = useState()
     const [confirmed, setConfirmed] = useState(false);
+
+    const { onStartGame } = props;
 
     //validates the non valid inputs in the inputText
     const changeTextHandler = inputText => {
@@ -57,16 +63,8 @@ const StartGameScreen = props => {
     let confirmedOutput;
 
     if (confirmed) {
-        // confirmedOutput = <Text> You Chose : {selectedNumber} </Text>
         confirmedOutput = (
-            <Card style={styles.circleShapeView}>
-                <Text style={styles.selectedNumber}>{selectedNumber}</Text>
-                <TouchableOpacity
-                    activeOpacity={0.26}
-                    style={styles.TriangleShapeView}
-                    onPress={() => props.onStartGame(selectedNumber)}>
-                </TouchableOpacity>
-            </Card>
+            <StartGameBtn onPress={() => onStartGame(selectedNumber)} selectedNumber={selectedNumber} />
         )
     }
 
@@ -87,12 +85,12 @@ const StartGameScreen = props => {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.confirmButton} onPress={resetInputHandler}>
                             <CircleShape style={styles.circle}>
-                                <Text style={styles.buttonText}>x</Text>
+                                <MaterialCommunityIcons name="sword-cross" size={30} color="#FF0000" />
                             </CircleShape>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.cancelButton} onPress={confirmInputHandler}>
                             <CircleShape style={styles.circle}>
-                                <Text style={styles.buttonText}>OK</Text>
+                                <AntDesign name="heart" size={30} color="#008000" />
                             </CircleShape>
                         </TouchableOpacity>
                     </View>
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
         shadowRadius: 15
     },
     textInput: {
-        width: '95%',
+        width: '93%',
         height: 60,
         fontSize: 20,
         borderColor: '#fff',
@@ -167,30 +165,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.6,
         shadowOffset: { width: 4, height: 3 },
         shadowRadius: 5
-    },
-    TriangleShapeView: {
-        //To make Triangle Shape
-        width: 30,
-        height: 0,
-        borderLeftWidth: 50,
-        borderRightWidth: 50,
-        borderBottomWidth: 80,
-        borderStyle: 'solid',
-        backgroundColor: 'transparent',
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: Colors.lakerpurple,
-        transform: [
-            { rotate: '90deg' }
-        ],
-        shadowColor: '#000',
-        shadowOpacity: 0.6,
-        shadowOffset: { width: 4, height: 3 },
-        shadowRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        opacity: 0.9
     },
     selectedNumber: {
         color: '#fff',

@@ -12,8 +12,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "white",
         color: "white",
-        textAlign: "center",
-        opacity:0.75
+        textAlign: "center"
     }
 });
 

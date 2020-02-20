@@ -1,7 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
+
+import BodyText from '../components/BodyText'
+import TitleText from '../components/TitleText'
 
 const generateNumberBetween = (min, max, exclude) => {
     min = Math.ceil(min)
@@ -61,13 +65,13 @@ const GameScreen = props => {
             <View style={styles.mainContainer}>
                 <TouchableOpacity style={styles.upButton} onPress={nextGuessHandler.bind(this, 'greater')}>
                     <CircleShape style={styles.circle}>
-                        <Text style={{ color: '#000', fontWeight: 'bold' }}>UP</Text>
+                        <TitleText style={{ color: '#000', fontWeight: 'bold' }}>UP</TitleText>
                     </CircleShape>
                 </TouchableOpacity>
                 <NumberContainer style={styles.numberContainer}>{currentGuess}</NumberContainer>
                 <TouchableOpacity style={styles.downButton} onPress={nextGuessHandler.bind(this, 'lower')}>
                     <CircleShape style={styles.circle}>
-                        <Text style={{ color: '#000', fontWeight: 'bold' }}>DOWN</Text>
+                        <TitleText style={{ color: '#000', fontWeight: 'bold' }}>DOWN</TitleText>
                     </CircleShape>
                 </TouchableOpacity>
             </View>
