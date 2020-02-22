@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Button, Image, TouchableOpacity, Dimensions } from "react-native";
 
 import BodyText from '../components/BodyText'
 import TitleText from '../components/TitleText'
@@ -9,6 +9,7 @@ const GameOverScreen = props => {
     return (
         <View style={styles.screen}>
             <TitleText style={{ fontSize: 50 }}>K.O.</TitleText>
+            <View style={styles.divider}></View>
             <View style={styles.imageContainer}>
                 <Image
                     // source={require('../assets/success.png')}
@@ -62,8 +63,14 @@ const styles = StyleSheet.create({
         fontSize: 17
     },
     highlightedText: {
-        fontFamily:'open-sans-bold',
-        color:'orange'
+        fontFamily: 'open-sans-bold',
+        color: 'orange'
+    },
+    divider:{
+        // width:Dimensions.get('window').width - 10,
+        width:360,
+        height:1,
+        backgroundColor:'#c2c2c2'
     }
 });
 
