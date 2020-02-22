@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView, FlatList } from 'react-native'
 
 import NumberContainer from '../components/NumberContainer'
 import CircleShape from '../components/CircleShape'
+import Card from '../components/Card'
 
-import BodyText from '../components/BodyText'
 import TitleText from '../components/TitleText'
+import BodyText from '../components/BodyText'
 
 const generateNumberBetween = (min, max, exclude) => {
     min = Math.ceil(min)
@@ -21,21 +22,31 @@ const generateNumberBetween = (min, max, exclude) => {
     }
 }
 
-const GameScreen = props => {
-    const [currentGuess, setCurrentGuess] =
-        useState(generateNumberBetween(1, 100, props.userChoice))
+const renderListItem = (itemData) => {
+    return (
+        <Card
+            style={styles.listItem}>
+            <BodyText style={styles.listItemTitle}>{itemData.item}</BodyText>
+        </Card>)
+}
 
+const GameScreen = props => {
+    const initialGuess = generateNumberBetween(1, 100, props.userChoice);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess)
+
+    // const [rounds, setRounds] = useState(0);
+
+    const [pastGuesses, setPastGuesses] = useState([initialGuess.toString()])
 
     const currentHigh = useRef(100);
     const currentLow = useRef(1);
 
-    const [rounds, setRounds] = useState(0);
 
     const { userChoice, onGameOver } = props;
 
     useEffect(() => {
         if (currentGuess === props.userChoice) {
-            onGameOver(rounds)
+            onGameOver(pastGuesses.length)
         }
     }, [userChoice, onGameOver, currentGuess]
     )
@@ -51,29 +62,44 @@ const GameScreen = props => {
             currentHigh.current = currentGuess;
         }
         else {
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         }
 
         const nextGuess = generateNumberBetween(currentLow.current, currentHigh.current, currentGuess)
         setCurrentGuess(nextGuess)
-        setRounds(curRounds => curRounds + 1)
+        // setRounds(curRounds => curRounds + 1)
+
+        setPastGuesses(curPastGuess => [nextGuess.toString(), ...pastGuesses])
     }
 
 
     return (
         <View style={styles.screen}>
             <View style={styles.mainContainer}>
-                <TouchableOpacity style={styles.upButton} onPress={nextGuessHandler.bind(this, 'greater')}>
-                    <CircleShape style={styles.circle}>
-                        <TitleText style={{ color: '#000', fontWeight: 'bold' }}>UP</TitleText>
-                    </CircleShape>
-                </TouchableOpacity>
-                <NumberContainer style={styles.numberContainer}>{currentGuess}</NumberContainer>
-                <TouchableOpacity style={styles.downButton} onPress={nextGuessHandler.bind(this, 'lower')}>
-                    <CircleShape style={styles.circle}>
-                        <TitleText style={{ color: '#000', fontWeight: 'bold' }}>DOWN</TitleText>
-                    </CircleShape>
-                </TouchableOpacity>
+                <View style={styles.playContainer}>
+                    <TouchableOpacity style={styles.upButton} onPress={nextGuessHandler.bind(this, 'greater')}>
+                        <CircleShape style={styles.circle}>
+                            <TitleText style={{ color: '#000', fontWeight: 'bold' }}>UP</TitleText>
+                        </CircleShape>
+                    </TouchableOpacity>
+                    <NumberContainer style={styles.numberContainer}>{currentGuess}</NumberContainer>
+                    <TouchableOpacity style={styles.downButton} onPress={nextGuessHandler.bind(this, 'lower')}>
+                        <CircleShape style={styles.circle}>
+                            <TitleText style={{ color: '#000', fontWeight: 'bold' }}>DOWN</TitleText>
+                        </CircleShape>
+                    </TouchableOpacity>
+                </View>
+
+                {/* <ScrollView>
+                        {pastGuesses.map(guess => renderListItem(guess))}
+                    </ScrollView> */}
+
+                <FlatList
+                    contentContainerStyle={styles.listContainer}
+                    keyExtractor={(item) => item}
+                    data={pastGuesses}
+                    renderItem={renderListItem} />
+
             </View>
         </View>
     )
@@ -85,12 +111,12 @@ const styles = StyleSheet.create({
         padding: 5,
         marginTop: 10
     },
-    mainContainer: {
+    playContainer: {
         flexDirection: 'column',
-        flex: 1,
-        marginVertical: 0,
-        alignItems: 'center',
+        marginVertical: 20,
+        alignItems: 'flex-start',
         justifyContent: 'space-around',
+        marginStart: 40
     },
     numberContainer: {
     },
@@ -106,7 +132,29 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderWidth: 1,
         borderColor: '#ccc'
+    },
+    listContainer: {
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        paddingVertical: 70,
+        marginHorizontal: 22
+    },
+    mainContainer: {
+        flexDirection: 'row',
+        flex: 1
+    },
+    listItem: {
+        width: 180,
+        marginVertical: 5,
+        borderRadius: 8,
+        height: 50
+    },
+    listItemTitle: {
+        fontSize: 18,
+        color: "#fff"
     }
+
 })
 
 export default GameScreen;
